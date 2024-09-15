@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: config-server
+# https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html#_file_system_backend
+#    where are the config files for each service, in my case I keep them in the config server
+  cloud:
+    config:
+      server:
+        native:
+          # it will pick the files from the resources folder
+          # if we want to set another location we need to replace classpath with file:
+          # I need to add the configuration files to the config folder in resources so it will load them depending on profile
+          # If i don't put the config files in the config folder will not load the yaml's files depending on profile
+          #ATENTION!!! -> if I put the config files of the microservices in the config folder them wht the microservice starts
+          # it will not take the application.yaml file (here we have the config server properties) Otherwise if I put them all
+          # together it will take the application.yaml file when the microservice starts
+          # https://stackoverflow.com/questions/27131143/spring-cloud-configuration-server-not-working-with-local-properties-file
+          search-locations: classpath:/config
+
+# need to set the profile to active so it will pick the config files from the location that I specified. If I don't set this
+# profile it will try to take the config files from a git location
+  profiles:
+    active: native
+server:
+  port: 8888
+
+#  The default value of the searchLocations is identical to a local Spring Boot application
+#  (that is, [classpath:/, classpath:/config, file:./, file:./config]). This does not expose the application.properties
+#  from the server to all clients, because any property sources present in the server are removed before being sent to the client.
+
+test:
+  value: xxx

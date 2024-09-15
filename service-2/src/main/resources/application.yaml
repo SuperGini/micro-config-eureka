@@ -1,0 +1,18 @@
+# where to connect to get the configuration files from the config-server
+spring:
+  application:
+    name: service2
+  config:
+    import: optional:configserver:http://localhost:8888
+
+# the name of the application tels to config server what file to pull when the service start
+
+server:
+  port: 9090
+
+
+#where to find the eureka server url
+eureka:
+  client:
+    service-url:
+      .defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: service1
+# where to connect to get the configuration files from the config-server
+# ATENTION! -> it will load the application.yaml file and the service1.yaml service and if you have a profile yaml file
+# it will load that one too!!!!!
+#ATENTION!!!!!!!!!!!! ---> after putting the config files in the config folder in the config-server I notice that the
+# application.yaml file is not beeing piked up when the service starts. Because I tell config server to look for
+# configurations in the config folder.
+  config:
+    import: optional:configserver:http://localhost:8888
+  profiles:
+    active: local
+server:
+  port: 7070
+
+# add implementation 'org.springframework.cloud:spring-cloud-starter-config' dependency to build.gradle to connect to
+# config server
+
+#where to find the eureka server url
+eureka:
+  client:
+    service-url:
+      .defaultZone: http://localhost:8761/eureka
